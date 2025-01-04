@@ -1,4 +1,4 @@
-class_name Drone extends Sprite2D
+class_name Drone extends Node2D
 
 @export var orbit_distance: float = 20.0
 @export var target_body: CelestialBody = null
@@ -13,9 +13,9 @@ func _process(delta: float) -> void:
 		# Move towards the target
 		var direction = (target_body.global_position - global_position).normalized()
 		global_position += direction * 100 * delta
-		rotation = direction.angle()
+		look_at(target_body.position)
 	else:
 		# Orbit the target
 		orbit_angle += orbit_speed * delta
 		global_position = target_body.global_position + Vector2(cos(orbit_angle), sin(orbit_angle)) * (orbit_distance+target_body.radius)
-		rotation = orbit_angle
+		rotation = orbit_angle+deg_to_rad(90)

@@ -1,28 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b87e0v8dclhlg"]
+[gd_scene load_steps=6 format=3 uid="uid://b87e0v8dclhlg"]
 
-[ext_resource type="Shader" path="res://src/crt.gdshader" id="1_4bcie"]
 [ext_resource type="PackedScene" uid="uid://dub8xo6gfb0kn" path="res://src/celestial_body.tscn" id="1_5vdfo"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_u4gpj"]
 [ext_resource type="Script" path="res://src/camera_2d.gd" id="2_wl2gp"]
+[ext_resource type="Material" uid="uid://bn51uu5n2o2tl" path="res://src/crt.tres" id="4_sw8ff"]
 [ext_resource type="PackedScene" uid="uid://1v5yj5qq2lvi" path="res://src/drone.tscn" id="5_cq5bs"]
-[ext_resource type="Script" path="res://src/drone.gd" id="6_gc4at"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_om4nh"]
-shader = ExtResource("1_4bcie")
-shader_parameter/resolution = Vector2(320, 180)
-shader_parameter/scan_line_amount = 1.0
-shader_parameter/warp_amount = 0.1
-shader_parameter/noise_amount = 0.03
-shader_parameter/interference_amount = 0.2
-shader_parameter/grille_amount = 0.1
-shader_parameter/grille_size = 1.0
-shader_parameter/vignette_amount = 0.6
-shader_parameter/vignette_intensity = 0.4
-shader_parameter/aberation_amount = 0.5
-shader_parameter/roll_line_amount = 0.0
-shader_parameter/roll_speed = 1.0
-shader_parameter/scan_line_strength = -8.0
-shader_parameter/pixel_strength = -2.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_u4gpj")
@@ -41,9 +23,10 @@ script = ExtResource("2_wl2gp")
 max_zoom = 5.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_om4nh")
+material = ExtResource("4_sw8ff")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -53,24 +36,16 @@ metadata/_edit_lock_ = true
 
 [node name="Drone" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("5_cq5bs")]
 position = Vector2(464, 206)
-scale = Vector2(-0.015, -0.024)
-script = ExtResource("6_gc4at")
 target_body = NodePath("../CelestialBody")
 
 [node name="Drone4" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("5_cq5bs")]
 position = Vector2(352, 87)
-scale = Vector2(-0.015, -0.024)
-script = ExtResource("6_gc4at")
 target_body = NodePath("../CelestialBody")
 
 [node name="Drone3" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("5_cq5bs")]
 position = Vector2(501, 137)
-scale = Vector2(-0.015, -0.024)
-script = ExtResource("6_gc4at")
 target_body = NodePath("../CelestialBody")
 
 [node name="Drone2" parent="." node_paths=PackedStringArray("target_body") instance=ExtResource("5_cq5bs")]
 position = Vector2(305, 313)
-scale = Vector2(-0.015, -0.024)
-script = ExtResource("6_gc4at")
 target_body = NodePath("../CelestialBody")
